@@ -36,7 +36,12 @@ function Login() {
       // Verificamos si el backend devuelve un token
       if (data.access_token) {
         localStorage.setItem("token", data.access_token);
-        dispatch(addUserInfo({ user: { email: data.email, role: data.role } })); // Agrega la información del usuario al store
+        dispatch(
+          addUserInfo({
+            token: data.access_token,
+            user: { id: data.id, email: data.email, role: data.role },
+          })
+        ); // Agrega la información del usuario al store
         setMessage("¡Inicio de sesión exitoso!");
       } else {
         setMessage("El servidor no devolvió un token.");

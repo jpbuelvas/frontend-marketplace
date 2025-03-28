@@ -1,4 +1,3 @@
-// Cart.jsx
 import { useSelector, useDispatch } from "react-redux";
 import { deleteItem, resetCart } from "../redux/marketSlice";
 
@@ -15,6 +14,7 @@ function Cart() {
 
   // Función para eliminar un producto específico
   const handleRemoveFromCart = (id) => {
+    console.log(id, "id");
     dispatch(deleteItem(id));
   };
 

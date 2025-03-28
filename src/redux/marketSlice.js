@@ -2,7 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify"; // Importar toast
 
 const initialState = {
-  userInfo: [],
+  userInfo: {
+    token: null,
+    user: null,
+  },
   products: [],
   address: {},
 };
@@ -73,12 +76,12 @@ export const marketSlice = createSlice({
       }
     },
     addUserInfo: (state, action) => {
-      state.userInfo = action.payload;
+      // action.payload debe incluir { token, user }
+      state.userInfo.token = action.payload.token;
+      state.userInfo.user = action.payload.user;
     },
     increaseQuantity: (state, action) => {
-      const item = state.products.find(
-        (item) => item._id === action.payload._id
-      );
+      const item = state.products.find((item) => item.id === action.payload.id);
       if (item) {
         item.quantity++;
       }
@@ -93,9 +96,12 @@ export const marketSlice = createSlice({
         item.quantity--;
       }
     },
+    clearUserInfo: (state) => {
+      state.userInfo = { token: null, user: null };
+    },
     deleteItem: (state, action) => {
       state.products = state.products.filter(
-        (item) => item._id !== action.payload
+        (item) => item.id !== action.payload
       );
     },
     setCartDetails: (state, action) => {
@@ -115,6 +121,7 @@ export const {
   deleteItem,
   setCartDetails,
   resetCart,
+  clearUserInfo,
   addUserInfo,
 } = marketSlice.actions;
 export default marketSlice.reducer;

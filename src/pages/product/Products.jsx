@@ -1,16 +1,16 @@
+import React from "react";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../redux/marketSlice.js";
-import { useProducts } from "../constants/productsContext.jsx";
+import { addToCart } from "../../redux/marketSlice.js";
+import { useProducts } from "../../constants/productsContext.jsx";
 import { CircularProgress, Box } from "@mui/material";
-
-function ProductsSeller() {
+function Products() {
   const { productos, loading } = useProducts();
-
   const dispatch = useDispatch();
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
   };
+
   if (loading) {
     return (
       <Box
@@ -23,15 +23,16 @@ function ProductsSeller() {
           left: 0,
           width: "100vw",
           height: "100vh",
-          backgroundColor: "rgba(0, 0, 0, 0.5)", // Fondo semitransparente
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
           zIndex: 9999,
-          color: "#fff", // Hace que el spinner herede el color blanco
+          color: "#fff",
         }}
       >
         <CircularProgress color="inherit" size={60} />
       </Box>
     );
   }
+
   return (
     <div className="container my-5">
       <h2 className="text-center mb-4">Todos los Productos</h2>
@@ -41,7 +42,7 @@ function ProductsSeller() {
           <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={product.id}>
             <div className="card h-100">
               <img
-                src={product.imageURL}
+                src={product.ImageURL}
                 alt={product.name}
                 className="card-img-top"
                 style={{ objectFit: "cover", height: "180px" }}
@@ -64,4 +65,4 @@ function ProductsSeller() {
   );
 }
 
-export default ProductsSeller;
+export default Products;

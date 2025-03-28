@@ -65,11 +65,27 @@ export const fetchProducts = async () => {
     const response = await axios.get(
       `${import.meta.env.VITE_BACKEND_URL}/products`
     ); // Usar variable de entorno
-    console.log(
-      response,
-      "response",
-      import.meta.env.VITE_BACKEND_URL,
-      "VITE_BACKEND_URL"
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error("Error al obtener productos:", response.data);
+      return [];
+    }
+  } catch (error) {
+    console.error("Error de red o de API:", error);
+    return [];
+  }
+};
+
+export const fetchProductsByOwner = async (token) => {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_BACKEND_URL}/products/my-products`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     if (response.status === 200) {
       return response.data;

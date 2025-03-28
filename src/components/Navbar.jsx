@@ -1,26 +1,32 @@
 // Navbar.jsx
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { clearUserInfo } from "../redux/marketSlice";
 import { UserRole } from "../constants/roles";
 
 function Navbar() {
-  // useSelector nos permite acceder al state de Redux
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartItems = useSelector((state) => state.market.products);
-  const token = localStorage.getItem("token");
-  const role = useSelector((state) => state.market?.userInfo.user.role);
-  console.log(role, "role");
-  // Calculamos el total de artículos
+  // Obtenemos el token e información del usuario desde Redux
+  const token = useSelector((state) => state.market?.userInfo?.token);
+  const user = useSelector((state) => state.market?.userInfo?.user);
+  // Calcula el total de artículos en el carrito
   const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+
+  // Función para cerrar sesión
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    dispatch(clearUserInfo());
+    navigate("/login");
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
-        {/* Logo o título */}
         <Link className="navbar-brand" to="/">
           Mi Tienda
         </Link>
-
-        {/* Botón para colapsar menú en móviles */}
         <button
           className="navbar-toggler"
           type="button"
@@ -32,10 +38,8 @@ function Navbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-
-        {/* Items del menú */}
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto">
+          <ul className="navbar-nav ms-auto align-items-center">
             <li className="nav-item">
               <Link className="nav-link" to="/">
                 Inicio
@@ -46,13 +50,6 @@ function Navbar() {
                 Productos
               </Link>
             </li>
-            {role === UserRole.SELLER && (
-              <li>
-                <Link className="nav-link" to="/my-products">
-                  Mis Productos
-                </Link>
-              </li>
-            )}
             <li className="nav-item">
               <Link className="nav-link" to="/cart">
                 Carrito <span className="badge bg-secondary">{totalItems}</span>
@@ -60,10 +57,54 @@ function Navbar() {
             </li>
 
             {!token && (
-              <li>
+              <li className="nav-item">
                 <Link className="nav-link" to="/login">
                   Login
                 </Link>
+              </li>
+            )}
+
+            {token && (
+              <li className="nav-item dropdown">
+                <button
+                  className="nav-link dropdown-toggle btn btn-link"
+                  id="navbarDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  style={{ textDecoration: "none" }}
+                >
+                  {user?.email || "Cuenta"}
+                </button>
+                <ul
+                  className="dropdown-menu dropdown-menu-end"
+                  aria-labelledby="navbarDropdown"
+                >
+                  {user?.role === UserRole.SELLER && (
+                    <li>
+                      <Link className="dropdown-item" to="/my-products">
+                        Mis Productos
+                      </Link>
+                    </li>
+                  )}
+                  <li>
+                    <Link className="dropdown-item" to="/profile">
+                      Perfil
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/orders">
+                      Ordenes
+                    </Link>
+                  </li>
+                  <li>
+                    <hr className="dropdown-divider" />
+                  </li>
+                  <li>
+                    <button className="dropdown-item" onClick={handleLogout}>
+                      Logout
+                    </button>
+                  </li>
+                </ul>
               </li>
             )}
           </ul>
