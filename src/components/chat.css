@@ -1,0 +1,5 @@
+/* Aplica a todos los inputs dentro del chat */
+.n8n-chat__window input[type="text"],
+.n8n-chat__window textarea {
+  color: #000 !important; /* O el color que desees */
+}

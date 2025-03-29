@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { addUserInfo } from "../../redux/marketSlice";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom"; // Asegúrate de tener react-router-dom instalado
+import { toast } from "react-toastify";
 
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
 
@@ -19,13 +23,16 @@ function Login() {
     setMessage(""); // Resetea el mensaje antes de la petición
 
     try {
-      const response = await fetch("http://localhost:3000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Error en el login. Status: " + response.status);
@@ -33,7 +40,6 @@ function Login() {
 
       const data = await response.json();
 
-      // Verificamos si el backend devuelve un token
       if (data.access_token) {
         localStorage.setItem("token", data.access_token);
         dispatch(
@@ -41,44 +47,75 @@ function Login() {
             token: data.access_token,
             user: { id: data.id, email: data.email, role: data.role },
           })
-        ); // Agrega la información del usuario al store
-        setMessage("¡Inicio de sesión exitoso!");
+        );
+        navigate("/");
+        toast.success("¡Inicio de sesión exitoso!");
       } else {
-        setMessage("El servidor no devolvió un token.");
+        toast.error("El servidor no devolvió un token.");
       }
     } catch (error) {
-      setMessage("Error al iniciar sesión: " + error.message);
+      toast.error("Error al iniciar sesión: " + error.message);
     }
   };
 
   return (
-    <div style={{ margin: "2rem" }}>
-      <h2>Login</h2>
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", width: "200px" }}
-      >
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          style={{ marginBottom: "1rem" }}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Contraseña"
-          value={formData.password}
-          onChange={handleChange}
-          required
-          style={{ marginBottom: "1rem" }}
-        />
-        <button type="submit">Iniciar Sesión</button>
-      </form>
-      {message && <p>{message}</p>}
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-5">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <h2 className="card-title text-center mb-4">Iniciar Sesión</h2>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3 input-group">
+                  <span className="input-group-text">
+                    <i className="bi bi-envelope"></i>
+                  </span>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="form-control"
+                  />
+                </div>
+                <div className="mb-3 input-group">
+                  <span className="input-group-text">
+                    <i className="bi bi-lock"></i>
+                  </span>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Contraseña"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                    className="form-control"
+                  />
+                </div>
+                <div className="d-grid mb-3">
+                  <button type="submit" className="btn btn-primary">
+                    <i className="bi bi-box-arrow-in-right me-2"></i> Iniciar
+                    Sesión
+                  </button>
+                </div>
+              </form>
+              {message && (
+                <div className="alert alert-info text-center" role="alert">
+                  {message}
+                </div>
+              )}
+              <p className="text-center">
+                ¿No tienes cuenta?{" "}
+                <Link to="/register" className="text-decoration-none">
+                  Regístrate
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

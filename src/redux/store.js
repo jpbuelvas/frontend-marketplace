@@ -11,6 +11,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { marketSlice } from "./marketSlice"; // Asegúrate de que la importación sea correcta
+import productSlice from "./productSlice";
 
 const persistConfig = {
   key: "root",
@@ -21,7 +22,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, marketSlice.reducer);
 
 export const store = configureStore({
-  reducer: { market: persistedReducer },
+  reducer: { market: persistedReducer, product: productSlice },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

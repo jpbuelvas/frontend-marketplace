@@ -1,4 +1,3 @@
-// App.jsx
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -10,12 +9,15 @@ import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import Home from "./pages/Home.jsx";
 import Products from "./pages/product/Products.jsx";
-import Cart from "./pages/Cart.jsx";
+import Cart from "./pages/cart/Cart.jsx";
 import RegisterForm from "./pages/RegisterForm.jsx";
 import LoginForm from "./pages/login/LoginForm.jsx";
 import ProductsSeller from "./pages/product/ProductsSeller.jsx";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import { ProductsProvider } from "./constants/productsContext.jsx";
+import Orders from "./pages/orders/Orders.jsx";
+import PaymentResult from "./pages/payment/Payment.jsx";
+import Chatbot from "./components/Chatbot.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +33,8 @@ function App() {
 
   return (
     <BrowserRouter>
+      {/* Montamos el Chatbot fuera del ProductsProvider para que se inicie una sola vez */}
+      <Chatbot />
       <ProductsProvider>
         <Navbar />
         <div style={{ minHeight: "80vh" }}>
@@ -51,11 +55,12 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/payment/result" element={<PaymentResult />} />
           </Routes>
         </div>
         <Footer />
       </ProductsProvider>
-
       <ToastContainer
         position="top-right"
         autoClose={3000}

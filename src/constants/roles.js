@@ -3,3 +3,8 @@ export const UserRole = {
   BUYER: "buyer",
   ADMIN: "admin",
 };
+export const OrderStatus = {
+  PENDING: "pending",
+  CANCELEND: "canceled",
+  CONFIRMED: "confirmed",
+};

@@ -19,9 +19,16 @@
   },
   "plugins": ["react", "react-hooks", "import", "prettier"],
   "rules": {
-    "react/react-in-jsx-scope": "off",       
-    "prettier/prettier": "error",            
-    "react/prop-types": "off",                
+    "react/react-in-jsx-scope": "off",
+    "prettier/prettier": "error",
+    "react/prop-types": "off",
     "no-unused-vars": ["error", { "varsIgnorePattern": "^[A-Z_]" }]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".css"]
+      }
+    }
   }
 }

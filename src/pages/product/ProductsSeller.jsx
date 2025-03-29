@@ -19,7 +19,6 @@ function ProductsSeller() {
     try {
       setIsLoading(true);
       const products = await fetchProductsByOwner(token);
-      console.log(products, "producffts");
       setProductByOwner(products);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -62,9 +61,8 @@ function ProductsSeller() {
         role: userInfo.user.role,
       })
     );
-    console.log(formData, "formData");
     try {
-      const response = await axios.patch(
+      await axios.patch(
         `${import.meta.env.VITE_BACKEND_URL}/products/${productId}`,
         formData,
         {
@@ -74,7 +72,6 @@ function ProductsSeller() {
           },
         }
       );
-      console.log(response, "response");
       toast.success("Producto actualizado correctamente");
       closeModal("editProductModal");
       fetchProducts();
@@ -154,37 +151,51 @@ function ProductsSeller() {
   return (
     <div className="container my-5">
       <h2 className="text-center mb-4">Mis Productos</h2>
+
+      {/* Botón para crear producto con nuevo estilo */}
       <div className="mb-4 d-flex justify-content-end">
-        <button className="btn btn-success" onClick={handleCreateClick}>
-          Añadir Producto
+        <button
+          className="btn btn-primary btn-lg rounded-pill shadow-sm d-inline-flex align-items-center"
+          onClick={handleCreateClick}
+        >
+          <i className="bi bi-plus-circle fs-5 me-2"></i>
+          <span className="fw-bold">Añadir Producto</span>
         </button>
       </div>
+
+      {/* Listado de productos */}
       <div className="row g-4">
         {productsByOwner.map((product) => (
           <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={product.id}>
-            <div className="card h-100">
+            <div className="card h-100 shadow-sm border-0 rounded-4">
               <img
                 src={product.ImageURL}
                 alt={product.name}
-                className="card-img-top"
-                style={{ objectFit: "cover", height: "180px" }}
+                className="card-img-top rounded-top-4"
+                style={{ height: "180px", objectFit: "cover" }}
               />
               <div className="card-body d-flex flex-column">
-                <h5 className="card-title">{product.name}</h5>
-                <p className="card-text">Precio: ${product.price}</p>
-                <p className="card-text">SKU: {product.sku}</p>
-                <div className="d-flex mt-auto justify-content-end">
+                <h5 className="card-title mb-2">{product.name}</h5>
+                <p className="card-text text-muted mb-1">
+                  <strong>Precio:</strong> ${product.price}
+                </p>
+                <p className="card-text text-muted mb-3">
+                  <strong>SKU:</strong> {product.sku}
+                </p>
+                <div className="mt-auto d-flex justify-content-end">
                   <button
-                    className="btn btn-info me-2"
+                    className="btn btn-outline-secondary btn-sm me-2"
                     onClick={() => handleEditClick(product)}
+                    title="Editar"
                   >
-                    Editar
+                    <i className="bi bi-pencil-square"></i>
                   </button>
                   <button
-                    className="btn btn-danger"
+                    className="btn btn-outline-danger btn-sm"
                     onClick={() => handleDeleteProduct(product.id)}
+                    title="Eliminar"
                   >
-                    Eliminar
+                    <i className="bi bi-trash3"></i>
                   </button>
                 </div>
               </div>

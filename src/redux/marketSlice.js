@@ -15,10 +15,8 @@ export const marketSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      const item = state.products.find((item) => {
-        item.id === action.payload.id;
-      });
-      console.log(state.products, "item"); // Para depuración
+      console.log(state.products, "state", action.payload, "action");
+      const item = state.products.find((item) => item.id === action.payload.id);
       if (item) {
         toast.info(
           `El producto ${action.payload.name} ya está en el carrito.`,

@@ -22,7 +22,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <Link className="navbar-brand" to="/">
           Mi Tienda
@@ -67,13 +67,12 @@ function Navbar() {
             {token && (
               <li className="nav-item dropdown">
                 <button
-                  className="nav-link dropdown-toggle btn btn-link"
+                  className="nav-link dropdown-toggle btn btn-link centered-btn"
                   id="navbarDropdown"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-                  style={{ textDecoration: "none" }}
                 >
-                  {user?.email || "Cuenta"}
+                  {user?.fullname || "Cuenta"}
                 </button>
                 <ul
                   className="dropdown-menu dropdown-menu-end"
@@ -93,7 +92,7 @@ function Navbar() {
                   </li>
                   <li>
                     <Link className="dropdown-item" to="/orders">
-                      Ordenes
+                      {user?.role === UserRole.SELLER ? "Ordenes" : "Compras"}
                     </Link>
                   </li>
                   <li>
