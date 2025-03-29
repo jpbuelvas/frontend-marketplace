@@ -40,7 +40,7 @@ function Products() {
   const handleClearFilters = () => {
     setName("");
     setSku("");
-    setPriceRange([0, 670]);
+    setPriceRange([0, 100000]);
   };
 
   if (loading) {
@@ -116,7 +116,7 @@ function Products() {
               <Range
                 step={10}
                 min={0}
-                max={1000}
+                max={100000}
                 values={priceRange}
                 onChange={(values) => setPriceRange(values)}
                 renderTrack={({ props, children }) => (
