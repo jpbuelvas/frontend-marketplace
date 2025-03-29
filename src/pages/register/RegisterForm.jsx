@@ -29,20 +29,18 @@ const RegisterForm = () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/user/register`,
-        {
-          body: JSON.stringify(formData),
-        }
+        formData
       );
-      const data = await response.json();
-      if (data.userId) {
+      console.log(response.data, "response");
+      if (response.data.userId) {
         navigate("/login");
         toast.success("Registro exitoso!");
       } else {
-        toast.success("Error: " + data.message);
+        toast.error("Error: " + response.data.message);
       }
     } catch (error) {
       console.error("Error al registrar usuario:", error);
-      toast.success("Error al registrar usuario.");
+      toast.error("Error al registrar usuario.");
     }
   };
 
