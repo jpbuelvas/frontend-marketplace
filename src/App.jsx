@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Estilos para react-toastify
 import { useDispatch } from "react-redux";
@@ -7,10 +7,10 @@ import { addUserInfo, clearUserInfo } from "./redux/marketSlice";
 import { getValidTokenData } from "./utils/authUtils";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
-import Home from "./pages/Home.jsx";
+import Home from "./pages/home/Home.jsx";
 import Products from "./pages/product/Products.jsx";
 import Cart from "./pages/cart/Cart.jsx";
-import RegisterForm from "./pages/RegisterForm.jsx";
+import RegisterForm from "./pages/register/RegisterForm.jsx";
 import LoginForm from "./pages/login/LoginForm.jsx";
 import ProductsSeller from "./pages/product/ProductsSeller.jsx";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
@@ -18,9 +18,11 @@ import { ProductsProvider } from "./constants/productsContext.jsx";
 import Orders from "./pages/orders/Orders.jsx";
 import PaymentResult from "./pages/payment/Payment.jsx";
 import Chatbot from "./components/Chatbot.jsx";
+import Banner from "./components/Banner.jsx";
 
 function App() {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     const tokenData = getValidTokenData();
@@ -32,12 +34,12 @@ function App() {
   }, [dispatch]);
 
   return (
-    <BrowserRouter>
-      {/* Montamos el Chatbot fuera del ProductsProvider para que se inicie una sola vez */}
-      <Chatbot />
+    <>
+      {/* <Chatbot /> */}
       <ProductsProvider>
         <Navbar />
         <div style={{ minHeight: "80vh" }}>
+          {location.pathname === "/" && <Banner />}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
@@ -73,7 +75,7 @@ function App() {
         pauseOnHover
         theme="colored"
       />
-    </BrowserRouter>
+    </>
   );
 }
 

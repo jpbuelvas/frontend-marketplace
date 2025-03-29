@@ -1,9 +1,15 @@
+import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const RegisterForm = ({ onRegister }) => {
+const RegisterForm = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    fullname: "",
     confirmPassword: "",
     role: "",
   });
@@ -12,14 +18,32 @@ const RegisterForm = ({ onRegister }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Validar que password y confirmPassword coincidan
     if (formData.password !== formData.confirmPassword) {
-      alert("Las contraseñas no coinciden");
+      toast.error("Las contraseñas no coincidens");
       return;
     }
-    onRegister(formData);
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/user/register`,
+        {
+          body: JSON.stringify(formData),
+        }
+      );
+      const data = await response.json();
+      if (data.userId) {
+        navigate("/login");
+        toast.success("Registro exitoso!");
+      } else {
+        toast.success("Error: " + data.message);
+      }
+    } catch (error) {
+      console.error("Error al registrar usuario:", error);
+      toast.success("Error al registrar usuario.");
+    }
   };
 
   return (
@@ -28,7 +52,7 @@ const RegisterForm = ({ onRegister }) => {
         <div className="col-md-6">
           <div className="card shadow-sm">
             <div className="card-body">
-              <h2 className="card-title text-center mb-4">Registrarse</h2>
+              <h2 className="card-title text-center mb-6">Registrarse</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-3 input-group">
                   <span className="input-group-text">
@@ -39,6 +63,20 @@ const RegisterForm = ({ onRegister }) => {
                     name="email"
                     placeholder="Email"
                     value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="form-control"
+                  />
+                </div>
+                <div className="mb-3 input-group">
+                  <span className="input-group-text">
+                    <i className="bi bi-person"></i>
+                  </span>
+                  <input
+                    type="text"
+                    name="fullname"
+                    placeholder="Nombre Completo"
+                    value={formData.fullname}
                     onChange={handleChange}
                     required
                     className="form-control"

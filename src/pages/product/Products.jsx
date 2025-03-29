@@ -67,7 +67,6 @@ function Products() {
 
   return (
     <div className="container my-5">
-      <h2 className="text-center mb-4">Todos los Productos</h2>
       <div className="row">
         {/* Columna de Filtros */}
         <div className="col-lg-3 mb-4">

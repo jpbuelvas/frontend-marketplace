@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteItem, resetCart } from "../../redux/marketSlice.js";
+import { resetCart } from "../../redux/marketSlice.js";
 import { useNavigate } from "react-router-dom";
 import WompiButton from "./Wompi.jsx"; // Ajusta la ruta según tu proyecto
+import CartItem from "../../components/CartItem.jsx";
 // import { toast } from "react-toastify";
 
 function Cart() {
@@ -42,11 +43,6 @@ function Cart() {
     (field) => field.trim() !== ""
   );
 
-  // Eliminar un producto
-  const handleRemoveFromCart = (id) => {
-    dispatch(deleteItem(id));
-  };
-
   // Vaciar el carrito
   const handleClearCart = () => {
     dispatch(resetCart());
@@ -73,58 +69,25 @@ function Cart() {
         <div className="row">
           {/* Sección izquierda: tabla de productos */}
           <div className="col-md-8">
-            <div className="d-flex justify-content-between align-items-center mb-3">
+            <div className="d-flex justify-content-md-between align-items-md-center mb-3 flex-column flex-md-row gap-2">
               <h5 className="mb-0">Productos en tu carrito</h5>
-              <button className="btn btn-danger" onClick={handleClearCart}>
+              <button
+                className="btn btn-danger w-auto"
+                style={{ width: "fit-content" }}
+                onClick={handleClearCart}
+              >
                 <i className="bi bi-trash-fill me-2"></i>
                 Vaciar Carrito
               </button>
             </div>
-            <table className="table align-middle">
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Precio</th>
-                  <th>Cantidad</th>
-                  <th>Subtotal</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {cartItems.map((item) => (
-                  <tr key={item.id}>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <img
-                          src={item.ImageURL}
-                          alt={item.name}
-                          className="img-fluid rounded me-2"
-                          style={{ width: "80px", height: "auto" }}
-                        />
-                        <div>
-                          <strong>{item.name}</strong>
-                          <br />
-                          <small className="text-muted">
-                            {item.description}
-                          </small>
-                        </div>
-                      </div>
-                    </td>
-                    <td>${item.price}</td>
-                    <td>{item.quantity}</td>
-                    <td>${Number(item.price * item.quantity).toFixed(2)}</td>
-                    <td>
-                      <button
-                        className="btn btn-outline-danger"
-                        onClick={() => handleRemoveFromCart(item.id)}
-                      >
-                        <i className="bi bi-x-lg"></i>
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div className="d-flex flex-column gap-3 mt-4">
+              {cartItems.map((item, index) => (
+                <div key={index}>
+                  <CartItem item={item} />
+                  <hr />
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Sección derecha: Totales y dirección de envío */}

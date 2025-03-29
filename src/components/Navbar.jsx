@@ -25,7 +25,7 @@ function Navbar() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          Mi Tienda
+          MarketPlace
         </Link>
         <button
           className="navbar-toggler"
@@ -41,21 +41,10 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto align-items-center">
             <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Inicio
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link className="nav-link" to="/products">
                 Productos
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/cart">
-                Carrito <span className="badge bg-secondary">{totalItems}</span>
-              </Link>
-            </li>
-
             {!token && (
               <li className="nav-item">
                 <Link className="nav-link" to="/login">
@@ -63,6 +52,30 @@ function Navbar() {
                 </Link>
               </li>
             )}
+            <li className="nav-item">
+              <Link className="nav-link position-relative" to="/cart">
+                <i className="bi bi-cart me-2"></i>
+                {totalItems > 0 && (
+                  <span
+                    className="position-absolute text-dark"
+                    style={{
+                      top: -1,
+                      left: 22,
+                      width: 18,
+                      height: 18,
+                      backgroundColor: "#9fb8d1",
+                      textAlign: "center",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: 50,
+                    }}
+                  >
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
+            </li>
 
             {token && (
               <li className="nav-item dropdown">

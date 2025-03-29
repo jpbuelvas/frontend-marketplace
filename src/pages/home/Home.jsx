@@ -1,9 +1,9 @@
-import Banner from "../components/Banner.jsx";
+import Banner from "../../components/Banner.jsx";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../redux/marketSlice.js";
-import { useProducts } from "../constants/productsContext.jsx";
+import { addToCart } from "../../redux/marketSlice.js";
+import { useProducts } from "../../constants/productsContext.jsx";
 import { CircularProgress, Box } from "@mui/material";
-import ProductCard from "../pages/product/ProductCard.jsx";
+import ProductCard from "../product/ProductCard.jsx";
 
 function Home() {
   const { productos, loading } = useProducts();
@@ -37,8 +37,7 @@ function Home() {
 
   return (
     <div className="container my-5">
-      <Banner />
-      <h2 className="text-center mb-4 fw-bold">Productos Destacados</h2>
+      <h2 className="text-center mt-5 mb-4 fw-bold">Productos Destacados</h2>
       <div className="row g-4">
         {productos.map((product) => (
           <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={product.id}>
