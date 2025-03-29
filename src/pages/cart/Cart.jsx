@@ -4,6 +4,7 @@ import { resetCart } from "../../redux/marketSlice.js";
 import { useNavigate } from "react-router-dom";
 import WompiButton from "./Wompi.jsx"; // Ajusta la ruta según tu proyecto
 import CartItem from "../../components/CartItem.jsx";
+import { formatMoney } from "../../utils/helper.js";
 // import { toast } from "react-toastify";
 
 function Cart() {
@@ -98,11 +99,11 @@ function Cart() {
                 <h5 className="card-title">Totales del carrito</h5>
                 <div className="d-flex justify-content-between">
                   <span>Subtotal:</span>
-                  <strong>${totalPrice.toFixed(2)}</strong>
+                  <strong>{formatMoney(totalPrice)}</strong>
                 </div>
                 <div className="d-flex justify-content-between mb-3">
                   <span>Total:</span>
-                  <strong>${totalPrice.toFixed(2)}</strong>
+                  <strong>{formatMoney(totalPrice)}</strong>
                 </div>
                 {/* Validamos el token y la dirección */}
                 {token ? (
