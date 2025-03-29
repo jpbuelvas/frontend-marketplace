@@ -15,7 +15,7 @@ function Products() {
   // Estados para filtros locales
   const [name, setName] = useState("");
   const [sku, setSku] = useState("");
-  const [priceRange, setPriceRange] = useState([0, 670]);
+  const [priceRange, setPriceRange] = useState([0, 100000]);
 
   // Se carga la lista completa de productos al montar el componente
   useEffect(() => {
