@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { OrderStatus, UserRole } from "../../constants/roles";
+import { formatMoney } from "../../utils/helper";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
@@ -49,9 +50,6 @@ function Orders() {
 
   return (
     <div className="container my-4">
-      <h2 className="mb-4">
-        {role === UserRole.SELLER ? "Mis Ventas" : "Mis Compras"}
-      </h2>
       <div className="table-responsive">
         <table className="table table-striped table-hover align-middle">
           <thead className="table-dark text-center">
@@ -78,7 +76,7 @@ function Orders() {
                     {order.status}
                   </span>
                 </td>
-                <td>${order.total}</td>
+                <td>{formatMoney(order.total)}</td>
               </tr>
             ))}
           </tbody>
