@@ -5,6 +5,7 @@ import { formatMoney } from "../../utils/helper";
 import { useDispatch, useSelector } from "react-redux";
 import { resetCart } from "../../redux/marketSlice";
 import { createSelector } from "reselect";
+import { fetchProducts } from "../../redux/productSlice";
 
 // Selectores memoizados
 const selectProducts = createSelector(
@@ -51,7 +52,7 @@ const PaymentResult = () => {
           })),
         };
 
-        console.log("Enviando pedido:", pedidoData);
+        console.log("Enviando orden:", pedidoData);
 
         const response = await axios.post(
           `${import.meta.env.VITE_BACKEND_URL}/orders`,
@@ -63,6 +64,7 @@ const PaymentResult = () => {
           }
         );
         console.log("Pedido enviado correctamente:", response.data);
+        fetchProducts();
       } catch (error) {
         console.error(
           "Error al enviar el pedido:",

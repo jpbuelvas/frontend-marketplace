@@ -26,8 +26,8 @@ function Navbar() {
       <div className="container">
         <Link className="navbar-brand" to="/">
           <img
-            src="/src/assets/favicon.ico"
-            alt="Marketplace"
+            src="/src/assets/images/logo.png"
+            alt="image"
             width="30"
             height="30"
             className="me-2"
@@ -49,7 +49,7 @@ function Navbar() {
           <ul className="navbar-nav ms-auto align-items-center">
             <li className="nav-item">
               <Link className="nav-link" to="/products">
-                Productos
+                Tienda
               </Link>
             </li>
             {!token && (
