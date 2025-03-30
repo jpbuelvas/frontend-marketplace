@@ -87,6 +87,7 @@ export const marketSlice = createSlice({
     // Aumenta la cantidad de un producto en el carrito
     increaseQuantity: (state, action) => {
       const item = state.products.find((item) => item.id === action.payload.id);
+      console.log();
       if (item) {
         item.quantity++;
       }
@@ -122,7 +123,36 @@ export const marketSlice = createSlice({
     },
   },
 });
+export const increaseCartQuantity = (productId) => (dispatch, getState) => {
+  const { product: productState, market: marketState } = getState();
+  // Buscamos el producto en el inventario (productSlice)
+  const product = productState.products.find((p) => p.id === productId);
+  // Buscamos el producto en el carrito (marketSlice)
+  const cartItem = marketState.products.find((item) => item.id === productId);
+  console.log(product, cartItem, productId);
+  if (!product) {
+    toast.error("Producto no encontrado en inventario");
+    return;
+  }
 
+  if (!cartItem) {
+    toast.error("Producto no encontrado en carrito");
+    return;
+  }
+
+  // Validamos: si la cantidad en el carrito es menor que la cantidad disponible en el inventario
+  if (cartItem.quantity < product.quantity) {
+    dispatch(increaseQuantity({ id: productId }));
+  } else {
+    toast.error(
+      `La cantidad solicitada para ${product.name} no está disponible.`,
+      {
+        position: "top-right",
+        autoClose: 2000,
+      }
+    );
+  }
+};
 export const {
   addToCart,
   increaseQuantity,

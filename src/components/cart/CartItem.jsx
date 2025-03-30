@@ -3,7 +3,7 @@ import { defaultIamge } from "../../assets/images";
 import {
   deleteItem,
   drecreaseQuantity,
-  increaseQuantity,
+  increaseCartQuantity,
 } from "../../redux/marketSlice";
 
 function CartItem({ item }) {
@@ -12,7 +12,7 @@ function CartItem({ item }) {
     dispatch(drecreaseQuantity(id));
   };
   const handleIncreaseQuantity = (id) => {
-    dispatch(increaseQuantity(id));
+    dispatch(increaseCartQuantity(id));
   };
   const handleRemoveFromCart = (id) => {
     dispatch(deleteItem(id));
@@ -48,7 +48,7 @@ function CartItem({ item }) {
               style={{ width: "24px", height: "24px", padding: 0 }}
             >
               <i
-                onClick={() => handleDrecreaseQuantity(item.id)}
+                onClick={() => handleDrecreaseQuantity({ id: item.id })}
                 className="bi bi-dash fw-bold"
               ></i>
             </button>

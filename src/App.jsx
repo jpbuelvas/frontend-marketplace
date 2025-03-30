@@ -19,6 +19,7 @@ import Orders from "./pages/orders/Orders.jsx";
 import PaymentResult from "./pages/payment/Payment.jsx";
 import Chatbot from "./components/chatbot/Chatbot.jsx";
 import Banner from "./components/banner/Banner.jsx";
+import { fetchProducts } from "./redux/productSlice.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,9 @@ function App() {
     } else {
       dispatch(clearUserInfo());
     }
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchProducts());
   }, [dispatch]);
 
   return (
