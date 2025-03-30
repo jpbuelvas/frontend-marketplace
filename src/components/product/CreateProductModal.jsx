@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+// CreateProductModal.jsx
+import React, { useState } from "react";
 
-const EditProductModal = ({ product, onUpdate }) => {
+const CreateProductModal = ({ onSave, closeModal }) => {
   const [formValues, setFormValues] = useState({
     name: "",
     sku: "",
@@ -8,19 +9,6 @@ const EditProductModal = ({ product, onUpdate }) => {
     price: "",
     image: null,
   });
-
-  // Al cambiar el producto, precarga los valores
-  useEffect(() => {
-    if (product) {
-      setFormValues({
-        name: product.name || "",
-        sku: product.sku || "",
-        quantity: product.quantity || 1,
-        price: product.price || "",
-        image: null, // La imagen no se precarga, puedes agregar un preview si deseas
-      });
-    }
-  }, [product]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -33,7 +21,7 @@ const EditProductModal = ({ product, onUpdate }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Creamos un FormData con los datos del producto
+    // Crear FormData para enviar archivos al backend
     const data = new FormData();
     data.append("name", formValues.name);
     data.append("sku", formValues.sku);
@@ -42,24 +30,24 @@ const EditProductModal = ({ product, onUpdate }) => {
     if (formValues.image) {
       data.append("image", formValues.image);
     }
-
-    onUpdate(product.id, data);
+    // Le pasamos closeModal como segundo argumento
+    onSave(data, closeModal);
   };
 
   return (
     <div
       className="modal fade"
-      id="editProductModal"
+      id="createProductModal"
       tabIndex="-1"
-      aria-labelledby="editProductModalLabel"
+      aria-labelledby="createProductModalLabel"
       aria-hidden="true"
     >
       <div className="modal-dialog">
         <div className="modal-content">
           <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div className="modal-header">
-              <h5 className="modal-title" id="editProductModalLabel">
-                Editar Producto
+              <h5 className="modal-title" id="createProductModalLabel">
+                Crear Producto
               </h5>
               <button
                 type="button"
@@ -70,13 +58,13 @@ const EditProductModal = ({ product, onUpdate }) => {
             </div>
             <div className="modal-body">
               <div className="mb-3">
-                <label htmlFor="editProductName" className="form-label">
+                <label htmlFor="productName" className="form-label">
                   Nombre
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="editProductName"
+                  id="productName"
                   name="name"
                   placeholder="Product Name"
                   required
@@ -85,13 +73,13 @@ const EditProductModal = ({ product, onUpdate }) => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="editProductSku" className="form-label">
+                <label htmlFor="productSku" className="form-label">
                   SKU
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="editProductSku"
+                  id="productSku"
                   name="sku"
                   placeholder="ALFA-10"
                   required
@@ -100,13 +88,13 @@ const EditProductModal = ({ product, onUpdate }) => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="editProductQuantity" className="form-label">
+                <label htmlFor="productQuantity" className="form-label">
                   Cantidad
                 </label>
                 <input
                   type="number"
                   className="form-control"
-                  id="editProductQuantity"
+                  id="productQuantity"
                   name="quantity"
                   min="1"
                   required
@@ -115,14 +103,14 @@ const EditProductModal = ({ product, onUpdate }) => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="editProductPrice" className="form-label">
+                <label htmlFor="productPrice" className="form-label">
                   Precio
                 </label>
                 <input
                   type="number"
                   step="0.01"
                   className="form-control"
-                  id="editProductPrice"
+                  id="productPrice"
                   name="price"
                   placeholder="10.99"
                   required
@@ -131,27 +119,13 @@ const EditProductModal = ({ product, onUpdate }) => {
                 />
               </div>
               <div className="mb-3">
-                <div className="image-container d-flex justify-content-center align-items-center">
-                  <img
-                    src={product.ImageURL}
-                    alt={product.name}
-                    className="card-img-center justify-content-center"
-                    style={{
-                      objectFit: "cover",
-                      height: "180px",
-                      width: "100%",
-                      maxWidth: "180px",
-                    }}
-                  />
-                </div>
-
-                <label htmlFor="editProductImage" className="form-label">
-                  Cambiar Imagen
+                <label htmlFor="productImage" className="form-label">
+                  Imagen
                 </label>
                 <input
                   type="file"
                   className="form-control"
-                  id="editProductImage"
+                  id="productImage"
                   name="image"
                   accept="image/*"
                   onChange={handleChange}
@@ -167,7 +141,7 @@ const EditProductModal = ({ product, onUpdate }) => {
                 Cancelar
               </button>
               <button type="submit" className="btn btn-primary">
-                Actualizar Producto
+                Guardar Producto
               </button>
             </div>
           </form>
@@ -177,4 +151,4 @@ const EditProductModal = ({ product, onUpdate }) => {
   );
 };
 
-export default EditProductModal;
+export default CreateProductModal;

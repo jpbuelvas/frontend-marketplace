@@ -1,10 +1,19 @@
 import { useDispatch } from "react-redux";
-import { defaultIamge } from "../assets/images";
-import { deleteItem } from "../redux/marketSlice";
+import { defaultIamge } from "../../assets/images";
+import {
+  deleteItem,
+  drecreaseQuantity,
+  increaseQuantity,
+} from "../../redux/marketSlice";
 
 function CartItem({ item }) {
   const dispatch = useDispatch();
-
+  const handleDrecreaseQuantity = (id) => {
+    dispatch(drecreaseQuantity(id));
+  };
+  const handleIncreaseQuantity = (id) => {
+    dispatch(increaseQuantity(id));
+  };
   const handleRemoveFromCart = (id) => {
     dispatch(deleteItem(id));
   };
@@ -38,14 +47,20 @@ function CartItem({ item }) {
               className="btn btn-outline-danger"
               style={{ width: "24px", height: "24px", padding: 0 }}
             >
-              <i className="bi bi-dash fw-bold"></i>
+              <i
+                onClick={() => handleDrecreaseQuantity(item.id)}
+                className="bi bi-dash fw-bold"
+              ></i>
             </button>
             <strong className="mx-2">{item.quantity}</strong>
             <button
               className="btn btn-outline-danger"
               style={{ width: "24px", height: "24px", padding: 0 }}
             >
-              <i className="bi bi-plus fw-bold"></i>
+              <i
+                onClick={() => handleIncreaseQuantity(item.id)}
+                className="bi bi-plus fw-bold"
+              ></i>
             </button>
           </div>
         </div>

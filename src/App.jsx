@@ -5,8 +5,8 @@ import "react-toastify/dist/ReactToastify.css"; // Estilos para react-toastify
 import { useDispatch } from "react-redux";
 import { addUserInfo, clearUserInfo } from "./redux/marketSlice";
 import { getValidTokenData } from "./utils/authUtils";
-import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx";
+import Navbar from "./components/navbar/Navbar.jsx";
+import Footer from "./components/footer/Footer.jsx";
 import Home from "./pages/home/Home.jsx";
 import Products from "./pages/product/Products.jsx";
 import Cart from "./pages/cart/Cart.jsx";
@@ -17,8 +17,8 @@ import PrivateRoute from "./routes/PrivateRoute.jsx";
 import { ProductsProvider } from "./constants/productsContext.jsx";
 import Orders from "./pages/orders/Orders.jsx";
 import PaymentResult from "./pages/payment/Payment.jsx";
-import Chatbot from "./components/Chatbot.jsx";
-import Banner from "./components/Banner.jsx";
+import Chatbot from "./components/chatbot/Chatbot.jsx";
+import Banner from "./components/banner/Banner.jsx";
 
 function App() {
   const dispatch = useDispatch();

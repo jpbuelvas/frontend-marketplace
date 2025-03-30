@@ -31,10 +31,9 @@ const RegisterForm = () => {
         `${import.meta.env.VITE_BACKEND_URL}/user/register`,
         formData
       );
-      console.log(response.data, "response");
       if (response.data.userId) {
-        navigate("/login");
         toast.success("Registro exitoso!");
+        navigate("/login");
       } else {
         toast.error("Error: " + response.data.message);
       }

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { resetCart } from "../../redux/marketSlice.js";
 import { useNavigate } from "react-router-dom";
 import WompiButton from "./Wompi.jsx"; // Ajusta la ruta según tu proyecto
-import CartItem from "../../components/CartItem.jsx";
+import CartItem from "../../components/cart/CartItem.jsx";
 import { formatMoney } from "../../utils/helper.js";
 // import { toast } from "react-toastify";
 

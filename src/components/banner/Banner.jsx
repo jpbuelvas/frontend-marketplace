@@ -1,5 +1,6 @@
 import React from "react";
-import { banner01, banner02 } from "../assets/images/index";
+import { banner01, banner02 } from "../../assets/images/index";
+import "./Banner.css";
 
 function Banner() {
   return (
@@ -27,17 +28,15 @@ function Banner() {
         <div className="carousel-item active">
           <img
             src={banner01}
-            className="d-block w-100"
+            className="d-block w-100 img-fluid"
             alt="Banner 01"
-            style={{ height: "600px", objectFit: "cover" }}
           />
         </div>
         <div className="carousel-item">
           <img
             src={banner02}
-            className="d-block w-100"
+            className="d-block w-100 img-fluid"
             alt="Banner 02"
-            style={{ height: "600px", objectFit: "cover" }}
           />
         </div>
       </div>

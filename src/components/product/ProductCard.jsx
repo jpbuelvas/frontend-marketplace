@@ -23,21 +23,21 @@ function ProductCard({ product, onAddToCart }) {
           <i className="bi bi-upc-scan me-1"></i>
           <strong>SKU:</strong> {product.sku}
         </p>
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{
-            marginTop: "auto",
-            borderRadius: "20px",
-            textTransform: "none",
-            fontWeight: "bold",
-          }}
-          startIcon={<i className="bi bi-cart"></i>}
-          onClick={() => onAddToCart(product)}
-        >
-          Agregar
-        </Button>
+        <div className="mt-auto d-flex justify-content-between align-items-center">
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              borderRadius: "20px",
+              textTransform: "none",
+              fontWeight: "bold",
+            }}
+            startIcon={<i className="bi bi-cart"></i>}
+            onClick={() => onAddToCart(product)}
+          >
+            Agregar
+          </Button>
+        </div>
       </div>
     </div>
   );

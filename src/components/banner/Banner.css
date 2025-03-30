@@ -1,0 +1,12 @@
+.carousel-item img {
+    object-fit: cover;   /* Para que la imagen recorte en lugar de deformarse */
+    max-height: 600px;   /* Limita la altura máxima en pantallas grandes */
+  }
+  
+  /* Para pantallas pequeñas (por debajo de 576px, por ejemplo) */
+  @media (max-width: 576px) {
+    .carousel-item img {
+      max-height: 300px; /* Altura máxima reducida en móviles */
+    }
+  }
+  

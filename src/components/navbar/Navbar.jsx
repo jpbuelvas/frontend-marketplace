@@ -1,8 +1,8 @@
 // Navbar.jsx
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { clearUserInfo } from "../redux/marketSlice";
-import { UserRole } from "../constants/roles";
+import { clearUserInfo } from "../../redux/marketSlice";
+import { UserRole } from "../../constants/roles";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -25,6 +25,13 @@ function Navbar() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <Link className="navbar-brand" to="/">
+          <img
+            src="/src/assets/favicon.ico"
+            alt="Marketplace"
+            width="30"
+            height="30"
+            className="me-2"
+          />
           MarketPlace
         </Link>
         <button
@@ -98,11 +105,7 @@ function Navbar() {
                       </Link>
                     </li>
                   )}
-                  <li>
-                    <Link className="dropdown-item" to="/profile">
-                      Perfil
-                    </Link>
-                  </li>
+
                   <li>
                     <Link className="dropdown-item" to="/orders">
                       {user?.role === UserRole.SELLER ? "Ordenes" : "Compras"}

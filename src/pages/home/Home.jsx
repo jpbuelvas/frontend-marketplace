@@ -1,9 +1,10 @@
-import Banner from "../../components/Banner.jsx";
+import Banner from "../../components/banner/Banner.jsx";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/marketSlice.js";
 import { useProducts } from "../../constants/productsContext.jsx";
 import { CircularProgress, Box } from "@mui/material";
-import ProductCard from "../product/ProductCard.jsx";
+import ProductCard from "../../components/product/ProductCard.jsx";
+import Loader from "../../components/loader/Loader.jsx";
 
 function Home() {
   const { productos, loading } = useProducts();
@@ -13,27 +14,7 @@ function Home() {
     dispatch(addToCart(product));
   };
 
-  if (loading) {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          zIndex: 9999,
-          color: "#fff",
-        }}
-      >
-        <CircularProgress color="inherit" size={60} />
-      </Box>
-    );
-  }
+  if (loading) return <Loader />;
 
   return (
     <div className="container my-5">

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+// EditProductModal.jsx
+import React, { useState, useEffect } from "react";
 
-const CreateProductModal = ({ onSave }) => {
+const EditProductModal = ({ product, onUpdate, closeModal }) => {
   const [formValues, setFormValues] = useState({
     name: "",
     sku: "",
@@ -8,6 +9,19 @@ const CreateProductModal = ({ onSave }) => {
     price: "",
     image: null,
   });
+
+  // Precarga los valores al cambiar el producto
+  useEffect(() => {
+    if (product) {
+      setFormValues({
+        name: product.name || "",
+        sku: product.sku || "",
+        quantity: product.quantity || 1,
+        price: product.price || "",
+        image: null,
+      });
+    }
+  }, [product]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -20,7 +34,7 @@ const CreateProductModal = ({ onSave }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Crear FormData para enviar archivos al backend
+    // Creamos un FormData con los datos del producto
     const data = new FormData();
     data.append("name", formValues.name);
     data.append("sku", formValues.sku);
@@ -29,25 +43,24 @@ const CreateProductModal = ({ onSave }) => {
     if (formValues.image) {
       data.append("image", formValues.image);
     }
-    // Llamada a la función que se encargue de enviar el FormData al backend
-    onSave(data);
-    // Cerrar el modal (según tu implementación, puede ser con Bootstrap o estado local)
+    // Pasamos el closeModal para que se ejecute luego de actualizar
+    onUpdate(product.id, data, closeModal);
   };
 
   return (
     <div
       className="modal fade"
-      id="createProductModal"
+      id="editProductModal"
       tabIndex="-1"
-      aria-labelledby="createProductModalLabel"
+      aria-labelledby="editProductModalLabel"
       aria-hidden="true"
     >
       <div className="modal-dialog">
         <div className="modal-content">
           <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div className="modal-header">
-              <h5 className="modal-title" id="createProductModalLabel">
-                Crear Producto
+              <h5 className="modal-title" id="editProductModalLabel">
+                Editar Producto
               </h5>
               <button
                 type="button"
@@ -57,14 +70,15 @@ const CreateProductModal = ({ onSave }) => {
               ></button>
             </div>
             <div className="modal-body">
+              {/* Campos del formulario */}
               <div className="mb-3">
-                <label htmlFor="productName" className="form-label">
+                <label htmlFor="editProductName" className="form-label">
                   Nombre
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="productName"
+                  id="editProductName"
                   name="name"
                   placeholder="Product Name"
                   required
@@ -73,13 +87,13 @@ const CreateProductModal = ({ onSave }) => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="productSku" className="form-label">
+                <label htmlFor="editProductSku" className="form-label">
                   SKU
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="productSku"
+                  id="editProductSku"
                   name="sku"
                   placeholder="ALFA-10"
                   required
@@ -88,13 +102,13 @@ const CreateProductModal = ({ onSave }) => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="productQuantity" className="form-label">
+                <label htmlFor="editProductQuantity" className="form-label">
                   Cantidad
                 </label>
                 <input
                   type="number"
                   className="form-control"
-                  id="productQuantity"
+                  id="editProductQuantity"
                   name="quantity"
                   min="1"
                   required
@@ -103,14 +117,14 @@ const CreateProductModal = ({ onSave }) => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="productPrice" className="form-label">
+                <label htmlFor="editProductPrice" className="form-label">
                   Precio
                 </label>
                 <input
                   type="number"
                   step="0.01"
                   className="form-control"
-                  id="productPrice"
+                  id="editProductPrice"
                   name="price"
                   placeholder="10.99"
                   required
@@ -119,13 +133,26 @@ const CreateProductModal = ({ onSave }) => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="productImage" className="form-label">
-                  Imagen
+                <div className="image-container d-flex justify-content-center align-items-center">
+                  <img
+                    src={product.ImageURL}
+                    alt={product.name}
+                    className="card-img-center justify-content-center"
+                    style={{
+                      objectFit: "cover",
+                      height: "180px",
+                      width: "100%",
+                      maxWidth: "180px",
+                    }}
+                  />
+                </div>
+                <label htmlFor="editProductImage" className="form-label">
+                  Cambiar Imagen
                 </label>
                 <input
                   type="file"
                   className="form-control"
-                  id="productImage"
+                  id="editProductImage"
                   name="image"
                   accept="image/*"
                   onChange={handleChange}
@@ -141,7 +168,7 @@ const CreateProductModal = ({ onSave }) => {
                 Cancelar
               </button>
               <button type="submit" className="btn btn-primary">
-                Guardar Producto
+                Actualizar Producto
               </button>
             </div>
           </form>
@@ -151,4 +178,4 @@ const CreateProductModal = ({ onSave }) => {
   );
 };
 
-export default CreateProductModal;
+export default EditProductModal;
