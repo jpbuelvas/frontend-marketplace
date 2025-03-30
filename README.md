@@ -59,11 +59,13 @@ yarn dev
 La aplicación estará disponible en http://localhost:5173 (o el puerto configurado).
 
 ## Compilación para Producción
+
 npm run build
 # o
 yarn build
 
 ## Estructura del Proyecto
+```
 ├── node_modules
 ├── public
 ├── src
@@ -101,7 +103,7 @@ yarn build
 ├── postcss.config.js
 ├── README.md
 └── vite.config.js
-
+```
 ## Integración del Chatbot con n8n
 El chatbot está implementado aprovechando n8n, que permite crear flujos de trabajo automatizados. Con esta integración, el sistema puede responder a consultas de los usuarios y ejecutar procesos automatizados para mejorar la interacción y la eficiencia.
 
