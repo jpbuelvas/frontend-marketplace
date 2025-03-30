@@ -17,7 +17,6 @@ const selectAddress = createSelector(
   (state) => state.market?.address,
   (address) => address || {}
 );
-
 const PaymentResult = () => {
   const location = useLocation();
   const [transactionData, setTransactionData] = useState(null);
@@ -148,7 +147,7 @@ const PaymentResult = () => {
               </tr>
             </tbody>
           </table>
-          <Link to="/products">
+          <Link to="/">
             <button className="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">
               Seguir navegando
             </button>
