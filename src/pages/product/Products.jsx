@@ -1,4 +1,3 @@
-// src/components/Products.jsx
 import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/marketSlice.js";
@@ -20,7 +19,7 @@ function Products() {
   const [priceRange, setPriceRange] = useState([0, 100000]);
   const [selectedSellers, setSelectedSellers] = useState([]);
 
-  // Obtener lista única de vendedores a partir de product.owner
+  // Obtenen lista única de vendedores a partir de product.owner
   const sellers = useMemo(() => {
     const uniqueSellers = new Set();
     products.forEach((product) => {
@@ -100,7 +99,8 @@ function Products() {
           <div className="row g-4">
             {filteredProducts.map((product) => (
               <div
-                className="col-12 col-sm-6 col-md-4 col-lg-3"
+                className="col-12 col-sm-6 col-md-3 col-lg-3"
+                //col-12 col-sm-6 col-md-4 col-lg-4
                 key={product.id}
               >
                 <ProductCard product={product} onAddToCart={handleAddToCart} />

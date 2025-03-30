@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import SelectInput from "../../components/input/SelectInput";
+import InputGroup from "../../components/input/InputGroup";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -20,9 +22,23 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validar que password y confirmPassword coincidan
+
+    // Validar contraseña
+    if (formData.password.length < 6) {
+      toast.error("La contraseña debe tener al menos 6 caracteres");
+      return;
+    }
+
+    // Validar formato de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error("El formato del email es inválido");
+      return;
+    }
+
+    // Validar que las contraseñas coincidan
     if (formData.password !== formData.confirmPassword) {
-      toast.error("Las contraseñas no coincidens");
+      toast.error("Las contraseñas no coinciden");
       return;
     }
 
@@ -43,6 +59,11 @@ const RegisterForm = () => {
     }
   };
 
+  const roleOptions = [
+    { value: "buyer", label: "Comprador" },
+    { value: "seller", label: "Vendedor" },
+  ];
+
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
@@ -51,75 +72,44 @@ const RegisterForm = () => {
             <div className="card-body">
               <h2 className="card-title text-center mb-6">Registrarse</h2>
               <form onSubmit={handleSubmit}>
-                <div className="mb-3 input-group">
-                  <span className="input-group-text">
-                    <i className="bi bi-envelope"></i>
-                  </span>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="form-control"
-                  />
-                </div>
-                <div className="mb-3 input-group">
-                  <span className="input-group-text">
-                    <i className="bi bi-person"></i>
-                  </span>
-                  <input
-                    type="text"
-                    name="fullname"
-                    placeholder="Nombre Completo"
-                    value={formData.fullname}
-                    onChange={handleChange}
-                    required
-                    className="form-control"
-                  />
-                </div>
-                <div className="mb-3 input-group">
-                  <span className="input-group-text">
-                    <i className="bi bi-lock"></i>
-                  </span>
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Contraseña"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                    className="form-control"
-                  />
-                </div>
-                <div className="mb-3 input-group">
-                  <span className="input-group-text">
-                    <i className="bi bi-lock-fill"></i>
-                  </span>
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Confirmar Contraseña"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    required
-                    className="form-control"
-                  />
-                </div>
-                <div className="mb-3">
-                  <select
-                    name="role"
-                    value={formData.role}
-                    onChange={handleChange}
-                    required
-                    className="form-select"
-                  >
-                    <option value="">Selecciona tu rol</option>
-                    <option value="buyer">Comprador</option>
-                    <option value="seller">Vendedor</option>
-                  </select>
-                </div>
+                <InputGroup
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  iconClass="bi bi-envelope"
+                />
+                <InputGroup
+                  type="text"
+                  name="fullname"
+                  placeholder="Nombre Completo"
+                  value={formData.fullname}
+                  onChange={handleChange}
+                  iconClass="bi bi-person"
+                />
+                <InputGroup
+                  type="password"
+                  name="password"
+                  placeholder="Contraseña"
+                  value={formData.password}
+                  onChange={handleChange}
+                  iconClass="bi bi-lock"
+                />
+                <InputGroup
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirmar Contraseña"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  iconClass="bi bi-lock-fill"
+                />
+                <SelectInput
+                  name="role"
+                  value={formData.role}
+                  onChange={handleChange}
+                  options={roleOptions}
+                />
                 <div className="d-grid">
                   <button type="submit" className="btn btn-primary">
                     <i className="bi bi-person-plus me-2"></i>Registrarse

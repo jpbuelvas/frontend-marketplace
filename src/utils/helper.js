@@ -12,44 +12,6 @@ export const crearPedidoData = (nombre, telefono, direccion, productos) => {
   const total = calcularTotal(productos);
   return { nombre, telefono, direccion, productos, total };
 };
-export const SplOfferData = [
-  {
-    _id: "201",
-    img: null,
-    productName: "Cap for Boys",
-    price: "35.00",
-    color: "Blank and White",
-    badge: true,
-    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
-  },
-  {
-    _id: "202",
-    img: null,
-    productName: "Tea Table",
-    price: "180.00",
-    color: "Gray",
-    badge: true,
-    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
-  },
-  {
-    _id: "203",
-    img: null,
-    productName: "Headphones",
-    price: "25.00",
-    color: "Mixed",
-    badge: true,
-    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
-  },
-  {
-    _id: "204",
-    img: null,
-    productName: "Sun glasses",
-    price: "220.00",
-    color: "Black",
-    badge: true,
-    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
-  },
-];
 
 // Formatear dinero
 export function formatMoney(amount) {

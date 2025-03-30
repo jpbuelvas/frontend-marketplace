@@ -1,5 +1,6 @@
 import React from "react";
 import { defaultIamge } from "../../assets/images/index.js";
+import { formatMoney } from "../../utils/helper.js";
 
 function ProductCardSeller({ product, onEdit, onDelete }) {
   return (
@@ -14,10 +15,14 @@ function ProductCardSeller({ product, onEdit, onDelete }) {
         <div className="card-body d-flex flex-column">
           <h5 className="card-title mb-2">{product.name}</h5>
           <p className="card-text text-muted mb-1">
-            <strong>Precio:</strong> ${product.price}
+            <strong>Precio:</strong> {formatMoney(product.price)}
+          </p>
+          <p className="card-text text-muted mb-1">
+            <i className="bi bi-upc-scan me-1"></i>
+            <strong>SKU:</strong> {product.sku}
           </p>
           <p className="card-text text-muted mb-3">
-            <strong>SKU:</strong> {product.sku}
+            <strong>Cantidad:</strong> {product.quantity}
           </p>
           <div className="mt-auto d-flex justify-content-end">
             <button

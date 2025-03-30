@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Estilos para react-toastify
+import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { addUserInfo, clearUserInfo } from "./redux/marketSlice";
 import { getValidTokenData } from "./utils/authUtils";
@@ -35,7 +35,7 @@ function App() {
 
   return (
     <>
-      {/* <Chatbot /> */}
+      <Chatbot />
       <ProductsProvider>
         <Navbar />
         <div style={{ minHeight: "80vh" }}>

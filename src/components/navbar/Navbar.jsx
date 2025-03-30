@@ -1,4 +1,3 @@
-// Navbar.jsx
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearUserInfo } from "../../redux/marketSlice";
@@ -25,13 +24,6 @@ function Navbar() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          <img
-            src="/src/assets/images/logo.png"
-            alt="image"
-            width="30"
-            height="30"
-            className="me-2"
-          />
           MarketPlace
         </Link>
         <button

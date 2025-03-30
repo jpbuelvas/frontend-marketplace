@@ -10,8 +10,8 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { marketSlice } from "./marketSlice"; // Asegúrate de que la importación sea correcta
-import productSlice from "./productSlice";
+import { marketSlice } from "./marketSlice"; // Aseguramos la importación sea correcta de marketSlice
+import productSlice from "./productSlice"; // Aseguramos la importación sea correcta de productSlice
 
 const persistConfig = {
   key: "root",

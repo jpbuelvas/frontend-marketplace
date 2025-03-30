@@ -1,8 +1,6 @@
-import Banner from "../../components/banner/Banner.jsx";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/marketSlice.js";
 import { useProducts } from "../../constants/productsContext.jsx";
-import { CircularProgress, Box } from "@mui/material";
 import ProductCard from "../../components/product/ProductCard.jsx";
 import Loader from "../../components/loader/Loader.jsx";
 

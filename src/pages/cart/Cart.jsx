@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { resetCart } from "../../redux/marketSlice.js";
 import { useNavigate } from "react-router-dom";
-import WompiButton from "./Wompi.jsx"; // Ajusta la ruta según tu proyecto
+import WompiButton from "./Wompi.jsx";
 import CartItem from "../../components/cart/CartItem.jsx";
 import { formatMoney } from "../../utils/helper.js";
-// import { toast } from "react-toastify";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -48,17 +47,6 @@ function Cart() {
   const handleClearCart = () => {
     dispatch(resetCart());
   };
-
-  // Función para proceder al pago
-  // const handleProceed = () => {
-  //   if (!token) {
-  //     // Si el usuario no está logeado, redirige a login
-  //     navigate("/login");
-  //   } else if (!isAddressComplete) {
-  //     // Si la dirección no está completa, muestra un mensaje (o puedes hacer otra acción)
-  //     toast.error("Por favor, completa todos los campos de la dirección.");
-  //   }
-  // };
 
   return (
     <div className="container my-5">

@@ -14,16 +14,27 @@ function ProductCard({ product, onAddToCart }) {
         style={{ height: "180px", objectFit: "cover" }}
       />
       <div className="card-body d-flex flex-column">
-        <h5 className="card-title mb-2 fw-semibold">{product.name}</h5>
+        <h5 className="card-title mb-2 fw-semibold text-center">
+          {product.name}
+        </h5>
         <p className="card-text text-muted mb-1">
           <i className="bi bi-currency-dollar me-1"></i>
           <strong>Precio:</strong> {formatMoney(product.price)}
         </p>
-        <p className="card-text text-muted mb-3">
+        <p className="card-text text-muted mb-1">
           <i className="bi bi-upc-scan me-1"></i>
           <strong>SKU:</strong> {product.sku}
         </p>
-        <div className="mt-auto d-flex justify-content-between align-items-center">
+        <p className="card-text text-muted mb-1">
+          <strong>Cantidad:</strong> {product.quantity}
+        </p>
+        {/* Validamos que el vendedor exista */}
+        {product?.owner?.fullname && (
+          <p className="card-text text-muted mb-3">
+            <strong>Vendedor:</strong> {product?.owner?.fullname}
+          </p>
+        )}
+        <div className="mt-auto d-flex justify-content-end align-items-end">
           <Button
             variant="contained"
             color="primary"

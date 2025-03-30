@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addUserInfo } from "../../redux/marketSlice";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom"; // Asegúrate de tener react-router-dom instalado
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function Login() {
@@ -20,7 +20,8 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage(""); // Resetea el mensaje antes de la petición
+    // Se resetea el mensaje antes de realizar la petición
+    setMessage("");
 
     try {
       const response = await fetch(
@@ -34,12 +35,14 @@ function Login() {
         }
       );
 
+      // Se verifica que la respuesta sea exitosa
       if (!response.ok) {
         throw new Error("Error en el login. Status: " + response.status);
       }
 
       const data = await response.json();
 
+      // Si se recibe un token, se almacena y se actualiza el estado global
       if (data.access_token) {
         localStorage.setItem("token", data.access_token);
         dispatch(
@@ -54,6 +57,7 @@ function Login() {
         toast.error("El servidor no devolvió un token.");
       }
     } catch (error) {
+      console.error("Error al iniciar sesión:", error);
       toast.error("Error al iniciar sesión: " + error.message);
     }
   };
@@ -94,6 +98,7 @@ function Login() {
                     className="form-control"
                   />
                 </div>
+                {/* Botón para enviar el formulario */}
                 <div className="d-grid mb-3">
                   <button type="submit" className="btn btn-primary">
                     <i className="bi bi-box-arrow-in-right me-2"></i> Iniciar
@@ -101,11 +106,13 @@ function Login() {
                   </button>
                 </div>
               </form>
+              {/* Mensaje informativo o de error */}
               {message && (
                 <div className="alert alert-info text-center" role="alert">
                   {message}
                 </div>
               )}
+              {/* Enlace para redirigir a la página de registro */}
               <p className="text-center">
                 ¿No tienes cuenta?{" "}
                 <Link to="/register" className="text-decoration-none">

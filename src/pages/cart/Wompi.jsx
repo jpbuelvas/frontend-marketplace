@@ -6,7 +6,9 @@ const WompiButton = ({ amount }) => {
   const publicKey = import.meta.env.VITE_APP_WOMPI_PUBLIC_KEY;
   useEffect(() => {
     const loadWompiWidget = async () => {
+      // Convertimos el monto a centavos (Wompi espera el monto en centavos)
       const amountInCents = parseInt(amount, 10) * 100;
+      // Generamos una referencia única basada en la fecha actual
       const reference = Date.now().toString();
 
       try {
@@ -19,6 +21,7 @@ const WompiButton = ({ amount }) => {
           }
         );
         console.log(data, "data");
+        // Creamos el elemento script para cargar el widget de Wompi
         const script = document.createElement("script");
         script.src = "https://checkout.wompi.co/widget.js";
         script.setAttribute("data-render", "button");
@@ -31,6 +34,7 @@ const WompiButton = ({ amount }) => {
           "data-redirect-url",
           `${window.location.origin}/payment/result`
         );
+        // Marcamos el script como asíncrono para que no bloquee la carga de la página
         script.async = true;
 
         buttonContainerRef.current.innerHTML = "";

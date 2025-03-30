@@ -1,4 +1,3 @@
-// src/components/Filters.jsx
 import React from "react";
 import { Range, getTrackBackground } from "react-range";
 import { formatMoney } from "../../utils/helper";

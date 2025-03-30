@@ -1,5 +1,6 @@
 // CreateProductModal.jsx
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const CreateProductModal = ({ onSave, closeModal }) => {
   const [formValues, setFormValues] = useState({
@@ -21,6 +22,24 @@ const CreateProductModal = ({ onSave, closeModal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Convertir el precio a número
+    const precio = parseFloat(formValues.price);
+
+    // Validamos que el precio sea mayor a 1500
+    if (precio < 1500) {
+      toast.error("El precio debe ser mayor a 1500");
+      return;
+    }
+    //Validamos el nombre que sus caracteres sea mayor a 7
+    if (formValues.name.length < 7) {
+      toast.error("El nombre minimo 7 carateres");
+      return;
+    }
+    //Validamos el sku que sus caracteres sea mayor a 5
+    if (formValues.sku.length < 5) {
+      toast.error("El sku minimo 5 carateres");
+      return;
+    }
     // Crear FormData para enviar archivos al backend
     const data = new FormData();
     data.append("name", formValues.name);

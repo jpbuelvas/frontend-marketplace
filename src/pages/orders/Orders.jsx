@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { OrderStatus, UserRole } from "../../constants/roles";
+import { UserRole } from "../../constants/roles";
 import { formatMoney } from "../../utils/helper";
 
 function Orders() {
