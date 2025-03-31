@@ -41,22 +41,18 @@ function Footer() {
             <h5 className="text-uppercase mb-3">Soporte</h5>
             <ul className="list-unstyled">
               <li>
-                <a href="/faq" className="text-light text-decoration-none">
-                  FAQ
-                </a>
+                <a className="text-light text-decoration-none">FAQ</a>
               </li>
               <li>
-                <a href="/help" className="text-light text-decoration-none">
-                  Ayuda
-                </a>
+                <a className="text-light text-decoration-none">Ayuda</a>
               </li>
               <li>
-                <a href="/privacy" className="text-light text-decoration-none">
+                <a className="text-light text-decoration-none">
                   Política de Privacidad
                 </a>
               </li>
               <li>
-                <a href="/terms" className="text-light text-decoration-none">
+                <a className="text-light text-decoration-none">
                   Términos y Condiciones
                 </a>
               </li>

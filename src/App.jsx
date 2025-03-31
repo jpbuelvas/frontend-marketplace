@@ -33,6 +33,8 @@ function App() {
       dispatch(clearUserInfo());
     }
   }, [dispatch]);
+
+  // Cargamos productos en el App una carga mas rapida
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
