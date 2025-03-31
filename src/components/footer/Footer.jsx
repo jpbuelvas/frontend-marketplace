@@ -69,13 +69,13 @@ function Footer() {
             </p>
           </div>
           <div className="col-md-6 text-md-end">
-            <a href="https://facebook.com" className="text-light me-3">
+            <a className="text-light me-3">
               <i className="bi bi-facebook fs-4"></i>
             </a>
-            <a href="https://twitter.com" className="text-light me-3">
+            <a className="text-light me-3">
               <i className="bi bi-twitter fs-4"></i>
             </a>
-            <a href="https://linkedin.com" className="text-light">
+            <a className="text-light">
               <i className="bi bi-linkedin fs-4"></i>
             </a>
           </div>
