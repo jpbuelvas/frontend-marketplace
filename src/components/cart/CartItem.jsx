@@ -48,7 +48,7 @@ function CartItem({ item }) {
               style={{ width: "24px", height: "24px", padding: 0 }}
             >
               <i
-                onClick={() => handleDrecreaseQuantity({ id: item.id })}
+                onClick={() => handleDrecreaseQuantity(item.id)}
                 className="bi bi-dash fw-bold"
               ></i>
             </button>
